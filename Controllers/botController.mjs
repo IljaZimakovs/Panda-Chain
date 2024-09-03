@@ -1,28 +1,17 @@
 import User from "../models/userModel.mjs";
-import Referral from "../models/ReferralModal.mjs";
+import Sequence from "../models/sequenceModal.mjs";
 import { Bot, InlineKeyboard } from "grammy";
+import { getNextSequenceValue } from "../utils/sequence.mjs";
 
 const startTGBot = () => {
   const paidUsers = new Map();
   const bot = new Bot(process.env.TELEGRAM_BOT_API_KEY);
-
-  async function getPhotoUrl(file_id) {
-    try {
-      const file = await bot.api.getFile(file_id);
-      return `https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_API_KEY}/${file.file_path}`;
-    } catch (error) {
-      console.error("Failed to get file:", error);
-      return "";
-    }
-  }
 
   bot.on("message:text", async (ctx) => {
     const messageText = ctx.message.text;
     // Regular expression to match /start command with an optional parameter
     const startCommandRegex = /^\/start(?:\s+(.+))?$/;
     const match = messageText.match(startCommandRegex);
-
-
 
     if (match) {
       const referrer_userId = match[1];
@@ -46,11 +35,14 @@ const startTGBot = () => {
           }
 
           if (!user) {
+            const sequenceNumber = await getNextSequenceValue();
+
             const newUser = new User({
               userId: userId,
               username: username,
               first_name: first_name,
               last_name: last_name,
+              sequence_no: sequenceNumber
             });
 
             await newUser.save();
@@ -99,11 +91,14 @@ const startTGBot = () => {
           const user = await User.findOne({ userId: userId });
 
           if (!user) {
+            const sequenceNumber = await getNextSequenceValue();
+
             const newUser = new User({
               userId: userId,
               username: username,
               first_name: first_name,
               last_name: last_name,
+              sequence_no: sequenceNumber
             });
 
             await newUser.save();
@@ -132,23 +127,6 @@ const startTGBot = () => {
         }
       }
     }
-  });
-
-  bot.on("pre_checkout_query", (ctx) => {
-    return ctx.answerPreCheckoutQuery(true).catch(() => {
-      console.error("answerPreCheckoutQuery failed");
-    });
-  });
-
-  bot.on("message:successful_payment", (ctx) => {
-    if (!ctx.message || !ctx.message.successful_payment || !ctx.from) {
-      return;
-    }
-
-    paidUsers.set(
-      ctx.from.id,
-      ctx.message.successful_payment.telegram_payment_charge_id
-    );
   });
 
   bot.start();

@@ -27,11 +27,23 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  level: {
+    type: Number,
+    default: 1
+  },
   date: {
     type: Date,
     default: Date.now,
   },
   referrer_userId: {
+    type: Number,
+    require: false
+  },
+  verified: {
+    type: Boolean,
+    default: false
+  },
+  sequence_no: {
     type: Number,
     require: false
   }

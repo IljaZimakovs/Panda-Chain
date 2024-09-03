@@ -77,9 +77,50 @@ const fetchFriendLists = async (req, res) => {
   }
 }
 
+const verifyUsername = async (req, res) => {
+  const {
+    user_id,
+    username
+  } = req.body;
+
+  try {
+    const newUser = await User.findOneAndUpdate(
+      { userId: user_id },
+      {
+        $set: { username: username },
+      },
+      { new: true }
+    );
+
+    res.status(200).json(newUser);
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+}
+
+const verifyAccount = async (req, res) => {
+  const { user_id } = req.body;
+
+  try {
+    const newUser = await User.findOneAndUpdate(
+      { userId: user_id },
+      {
+        $set: { verified: true },
+      },
+      { new: true }
+    );
+
+    res.status(200).json(newUser);
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+}
+
 export {
   fetchUserInfo,
   updateConnectWallet,
   followTwitter,
-  fetchFriendLists
+  fetchFriendLists,
+  verifyUsername,
+  verifyAccount
 };
