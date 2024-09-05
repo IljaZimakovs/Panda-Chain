@@ -23,6 +23,18 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  rt_follow: {
+    type: Boolean,
+    default: false
+  },
+  tpost_follow: {
+    type: Boolean,
+    default: false
+  },
+  tg_follow: {
+    type: Boolean,
+    default: false
+  },
   score: {
     type: Number,
     default: 0,
@@ -46,6 +58,10 @@ const UserSchema = new mongoose.Schema({
   sequence_no: {
     type: Number,
     require: false
+  },
+  mystery_box: {
+    type: Number,
+    default: 0
   }
 });
 
