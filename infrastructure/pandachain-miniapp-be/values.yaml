@@ -6,7 +6,7 @@ image:
   repository: multifarm/pandachain-miniapp-be
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "8"
+  tag: "13"
 imagePullSecrets:
   - name: regcred
 nameOverride: ""
