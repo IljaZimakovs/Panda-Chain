@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - deploy
+      - main
 jobs:
   build:
     name: "Build and Deploy"
@@ -13,7 +13,7 @@ jobs:
           fetch-depth: 0
       - name: Set environment for branch
         run: |
-          if [[ $GITHUB_REF == 'refs/heads/deploy' ]]; then
+          if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
               echo "DEPLOY_NS=apps" >> "$GITHUB_ENV"
           else
               echo "DEPLOY_NS=staging" >> "$GITHUB_ENV"
@@ -22,7 +22,7 @@ jobs:
         id: version
         run: bin/version.sh
       - uses: EndBug/add-and-commit@v7
-        if: github.ref == 'refs/heads/deploy'
+        if: github.ref == 'refs/heads/main'
         with:
           default_author: github_actions
       - name: Set up Docker Buildx

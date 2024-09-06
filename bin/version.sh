@@ -2,7 +2,7 @@
 
 VERSION=$(git rev-list --count HEAD)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-if [ "$BRANCH" != "deploy" ]
+if [ "$BRANCH" != "main" ]
 then
   VERSION=$(echo "$BRANCH" | sed -e 's/\//-/g')-$VERSION
 fi
