@@ -8,7 +8,10 @@ const DailyCheckSchema = new mongoose.Schema({
     lastCheckIn: { type: Date, required: true },
     points: { type: Number, default: 50 },
     streak: { type: Number, default: 0 }
-})
+},
+    {
+        collection: "pandachain.daily_checks",
+    })
 
 const DailyCheck = mongoose.model("dailycheck", DailyCheckSchema);
 

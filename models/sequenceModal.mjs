@@ -10,7 +10,10 @@ const SequenceSchema = new mongoose.Schema({
         type: Number,
         default: 0
     }
-})
+},
+    {
+        collection: "pandachain.sequence",
+    })
 
 const Sequence = mongoose.model("Sequence", SequenceSchema);
 

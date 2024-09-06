@@ -22,6 +22,9 @@ const GiftSchema = new mongoose.Schema({
   cost: {
     type: String,
   },
+},
+{
+  collection: "pandachain.gift_schema",
 });
 
 const Gift = mongoose.model("Gift", GiftSchema);

@@ -22,6 +22,9 @@ const LocationSchema = new mongoose.Schema({
   location: {
     type: String,
   },
+},
+{
+  collection: "pandachain.location",
 });
 
 const Location = mongoose.model("Location", LocationSchema);

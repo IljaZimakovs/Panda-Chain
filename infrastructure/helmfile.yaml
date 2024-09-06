@@ -1,0 +1,26 @@
+helmDefaults:
+  tillerless: true
+  cleanupOnFail: true #dedicated default key for helm flag --cleanup-on-fail
+  # wait for k8s resources via --wait. (default false)
+  wait: true
+  # time in seconds to wait for any individual Kubernetes operation (like Jobs for hooks, and waits on pod/pvc/svc/deployment readiness) (default 300)
+  timeout: 600
+  # forces resource update through delete/recreate if needed (default false)
+  force: false
+  # limit the maximum number of revisions saved per release. Use 0 for no limit. (default 10)
+  historyMax: 10
+  # when using helm 3.2+, automatically create release namespaces if they do not exist (default true)
+  createNamespace: true
+
+# The desired states of Helm releases.
+#
+# Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
+releases:
+  - name: pandachain-miniapp-be # name of this release
+    namespace: {{ env "DEPLOY_NS" | default "staging" }} # target namespace
+    chart: "./pandachain-miniapp-be" # the chart being installed to create this release, referenced by `repository/chart` syntax
+    missingFileHandler: Warn # set to either "Error" or "Warn". "Error" instructs helmfile to fail when unable to find a values or secrets file. When "Warn", it prints the file and continues.
+    wait: true
+    timeout: 300
+    # restores previous state in case of failed release (default false)
+    atomic: true
