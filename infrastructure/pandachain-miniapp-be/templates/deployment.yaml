@@ -32,7 +32,7 @@ spec:
         - name: monitoring
           containerPort: 9090
         - name: http
-          containerPort: 8080
+          containerPort: 5000
           protocol: TCP
         securityContext:
           {{- toYaml .Values.securityContext | nindent 14 }}
