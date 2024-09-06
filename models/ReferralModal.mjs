@@ -11,7 +11,10 @@ const ReferralSchema = new mongoose.Schema({
   is_premium: {
     type: Boolean,
   },
-});
+},
+    {
+      collection: "pandachain.referral",
+    });
 
 const Referral = mongoose.model("Refferal", ReferralSchema);
 

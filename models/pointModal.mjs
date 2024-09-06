@@ -13,6 +13,9 @@ const PointSchema = new mongoose.Schema({
         type: Number,
         require: false
     },
+},
+{
+    collection: "pandachain.point",
 })
 
 const Point = mongoose.model("Point", PointSchema);

@@ -63,7 +63,10 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 0
   }
-});
+},
+    {
+      collection: "pandachain.user",
+    });
 
 const User = mongoose.model("User", UserSchema);
 
