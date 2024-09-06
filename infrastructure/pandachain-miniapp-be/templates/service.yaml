@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pandachain-miniapp-be.fullname" . }}
+  labels:
+    {{- include "pandachain-miniapp-be.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: 9090
+      protocol: TCP
+      name: monitoring
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "pandachain-miniapp-be.selectorLabels" . | nindent 4 }}
