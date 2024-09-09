@@ -157,6 +157,7 @@ const verifyUsername = async (req, res) => {
     user_id,
     username
   } = req.body;
+  console.log("verifyUsername", user_id, username);
 
   try {
     const newUser = await User.findOneAndUpdate(
@@ -175,6 +176,8 @@ const verifyUsername = async (req, res) => {
 
 const verifyAccount = async (req, res) => {
   const { user_id } = req.body;
+  console.log("verifyAccount", user_id);
+
 
   try {
     const newUser = await User.findOneAndUpdate(
