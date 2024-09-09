@@ -55,6 +55,7 @@ const startTGBot = () => {
 
             await newUser.save();
             await newDailyCheck.save();
+            console.log(`Creating new user ${userId}`);
           } else {
             console.log("This user already exists.");
           }
