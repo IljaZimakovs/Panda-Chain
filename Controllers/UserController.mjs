@@ -168,6 +168,9 @@ const verifyUsername = async (req, res) => {
       { new: true }
     );
 
+
+    console.log("verifyUsername new user", newUser);
+
     res.status(200).json(newUser);
   } catch (error) {
     res.status(400).json({ error: error });
@@ -187,6 +190,8 @@ const verifyAccount = async (req, res) => {
       },
       { new: true }
     );
+
+    console.log("verifyAccount new user", newUser);
 
     res.status(200).json(newUser);
   } catch (error) {
